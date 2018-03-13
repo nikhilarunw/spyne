@@ -81,8 +81,8 @@ class DjangoApplication(WsgiApplication):
         # would hang waiting for extra request data. Use DjangoServer instead
         # of monkeypatching wsgi.inpu.
 
-        #environ['wsgi.input'] = request
-        #environ['wsgi.multithread'] = False
+        environ['wsgi.input'] = request
+        environ['wsgi.multithread'] = False
 
         response = WsgiApplication.__call__(self, environ, start_response)
         self.set_response(retval, response)
