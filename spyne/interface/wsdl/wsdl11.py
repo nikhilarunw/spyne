@@ -192,6 +192,12 @@ class Wsdl11(XmlSchema):
 
         self.event_manager.fire_event('document_built', self)
         self.event_manager.fire_event('wsdl_document_built', self)
+        
+        # Fixes WSDL service element sequence
+        services = root.findall('{http://schemas.xmlsoap.org/wsdl/}service')
+        for service in services:
+            root.remove(service)
+            root.append(service)
 
         self.__wsdl = etree.tostring(root, xml_declaration=True,
                                                                encoding="UTF-8")
